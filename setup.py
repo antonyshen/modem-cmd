@@ -18,7 +18,7 @@ setup(
     description='Send arbitrary AT commands to your modem',
     license='GPLv3+',
     author='Antony Shen',
-    author_email='shih@yulun.me',
+    author_email='antony.shen@gmail.com',
     url='https://github.com/antonyshen/modem-cmd',
     download_url=(
         'https://github.com/antonyshen/modem-cmd/archive/{0}.tar.gz'
