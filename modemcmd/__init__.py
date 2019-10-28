@@ -14,7 +14,7 @@ class ModemcmdException(Exception):
         self.msg = msg
 
 
-def modemcmd(port, cmd, timeout=0.3):
+def modemcmd(port, cmd, timeout=0.3, *waitrsps):
     try:
         serial = Serial(port=port,
                         timeout=float(timeout))
@@ -28,10 +28,22 @@ def modemcmd(port, cmd, timeout=0.3):
         raise ModemcmdTimeoutException('Write timeout')
 
     lines = b''
-    while True:
+    rsps=[]
+    if (len(waitrsps) > 0):
+        for rsp in waitrsps:
+            rsps.append(rsp.encode('utf-8'))
+
+    waiting = True
+    while waiting:
         line = serial.readline()
         lines += line
         if line == b'':  #timeout
-            break
+            print('modemcmd: Timeout!!')
+            waiting = False
+        elif len(rsps) > 0:
+            for rsp in rsps:
+                if rsp in line:
+                    waiting = False
+                    break
 
     return lines.decode('utf-8')

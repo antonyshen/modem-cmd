@@ -2,7 +2,7 @@
 
 """ modem-cmd installation script """
 
-VERSION = '1.0.1'
+VERSION = '1.0.2'
 
 try:
     from setuptools import setup
@@ -16,12 +16,12 @@ setup(
     name='modem-cmd',
     version='{0}'.format(VERSION),
     description='Send arbitrary AT commands to your modem',
-    license='MIT',
-    author='YuLun Shih',
+    license='GPLv3+',
+    author='Antony Shen',
     author_email='shih@yulun.me',
-    url='https://github.com/imZack/modem-cmd',
+    url='https://github.com/antonyshen/modem-cmd',
     download_url=(
-        'https://github.com/imZack/modem-cmd/archive/{0}.tar.gz'
+        'https://github.com/antonyshen/modem-cmd/archive/{0}.tar.gz'
             .format(VERSION),
     ),
     keywords=['modem', 'at commands', 'serial'],
@@ -37,6 +37,9 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Communications :: Telephony',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: System :: Hardware',
