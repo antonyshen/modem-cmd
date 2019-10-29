@@ -19,15 +19,16 @@ def modemcmd(port='/dev/ttyACM0', baudrate=115200, rts_cts=False, cmd='', timeou
         timeout = 30
 
     try:
-        serial = Serial(port, baudrate, 
+        serial = Serial(port, baudrate,
                         timeout=float(timeout), rtscts=rts_cts)
     except SerialException as e:
         raise ModemcmdException(e)
 
     if (len(cmd)):
         cmd = cmd + '\r'
+        cmd = cmd.encode('utf-8')
         try:
-            serial.write(cmd.encode('utf-8'))
+            serial.write(cmd)
         except SerialTimeoutException:
             raise ModemcmdTimeoutException('Write timeout')
 
@@ -40,9 +41,10 @@ def modemcmd(port='/dev/ttyACM0', baudrate=115200, rts_cts=False, cmd='', timeou
     waiting = True
     while waiting:
         line = serial.readline()
-        lines += line
+        if cmd not in line:
+            lines += line
         if line == b'':  #timeout
-           waiting = False
+            waiting = False
         elif len(rsps) > 0:
             for rsp in rsps:
                 if rsp in line:
